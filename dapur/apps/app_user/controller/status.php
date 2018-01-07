@@ -18,17 +18,18 @@ $db->connect();
 /*	    Enable and Disbale User		*/
 /****************************************/
 if(isset($_GET['stat'])) {
+	$id = str_replace(array("\\", "//", "'", "%27", "%"), "", $_GET['id']); 
 	if($_GET['stat']=='1'){
-		$db->update(FDBPrefix.'user',array("status"=>"1"),'id='.$_GET['id']);
+		$db->update(FDBPrefix.'user',array("status"=>"1"),'id='.$id);
 		alert('success',Status_Applied,1);
 	}
 	if($_GET['stat']=='0'){
-		$db->update(FDBPrefix.'user',array("status"=>"0"),'id='.$_GET['id']);
-		$db->delete(FDBPrefix.'session_login','user_id='.$_GET['id']);
+		$db->update(FDBPrefix.'user',array("status"=>"0"),'id='.$id);
+		$db->delete(FDBPrefix.'session_login','user_id='.$id);
 		alert('success',Status_Applied,1);
 	}
 	if($_GET['stat']=='kick'){
-		$db->delete(FDBPrefix.'session_login','user_id='.$_GET['id']);
+		$db->delete(FDBPrefix.'session_login','user_id='.$id);
 		alert('success',Status_Applied,1);
 	}
 }
